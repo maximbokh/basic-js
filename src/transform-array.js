@@ -13,9 +13,76 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function transform(arr) {
+  if (!Array.isArray(arr)) {
+    throw new Error ("'arr' parameter must be an instance of the Array!")
+    //return false;
+  }
+  let mas = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    switch(arr[i]) {
+      case '--discard-prev':
+        discardPrev(i);
+        break;
+      case '--double-prev':
+        doublePrev(i);
+        break;
+      case '--discard-next':
+        discardNext(i);
+        break;
+      case '--double-next':
+        doubleNext(i);
+        break;
+      default:
+        mas.push(arr[i])
+
+    }
+      function discardPrev(value) {
+
+        if (value === 0 || value === arr.length - 1) {
+           return;
+        }
+        else {
+          mas.pop();
+        }
+      }
+
+      function doublePrev(value) {
+
+        if (value === 0 || value === arr.length - 1) {
+           return;
+        }
+        else {
+          mas.push(arr[value - 1]);
+          return;
+        }
+      }
+
+      function discardNext(value) {
+
+        if (value === 0 || value === arr.length - 1) {
+           return;
+        }
+        else {
+          i = value + 2;
+          return;
+        }
+      }
+
+      function doubleNext(value) {
+
+        if (value === 0 || value === arr.length - 1) {
+           return;
+        }
+        else {
+          mas.push(arr[value + 1]);
+          return;
+        }
+      }
+  }
+
+  return mas;
 }
 
 module.exports = {
